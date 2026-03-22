@@ -6,11 +6,12 @@ function ProductList() {
     const [products, setProducts] = useState([]);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const fetchProducts = async () => {
+    async function fetchProducts() {
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
+        console.log(data);
         setProducts(data);
-    };
+    }
 
     useEffect(() => {
         fetchProducts();
