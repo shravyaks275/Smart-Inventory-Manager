@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
 import AddProductForm from "./AddProductForm";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function ProductList() {
     const [products, setProducts] = useState([]);
     const [editingProduct, setEditingProduct] = useState(null);
 
     const fetchProducts = async () => {
-        const res = await api.get("/products");
-        setProducts(res.data);
+        const res = await fetch(`${API_URL}/api/products`);
+        const data = await res.json();
+        setProducts(data);
     };
 
     useEffect(() => {
@@ -26,7 +27,7 @@ function ProductList() {
     };
 
     const handleDelete = async (id) => {
-        await api.delete(`/products/${id}`);
+        await fetch(`${API_URL}/api/products/${id}`, { method: 'DELETE' });
         setProducts(products.filter((p) => p._id !== id));
     };
 

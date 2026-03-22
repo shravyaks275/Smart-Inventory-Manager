@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function AddProductForm({ onProductAdded, editingProduct, onProductUpdated, clearEditing }) {
     const [formData, setFormData] = useState({
@@ -30,13 +30,23 @@ function AddProductForm({ onProductAdded, editingProduct, onProductUpdated, clea
 
         if (editingProduct) {
             // ✏️ Update existing product
-            const res = await api.put(`/products/${editingProduct._id}`, formData);
-            onProductUpdated(res.data);
+            const res = await fetch(`${API_URL}/api/products/${editingProduct._id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            onProductUpdated(data);
             clearEditing(); // reset editing state
         } else {
             // ➕ Add new product
-            const res = await api.post("/products", formData);
-            onProductAdded(res.data);
+            const res = await fetch(`${API_URL}/api/products`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            onProductAdded(data);
         }
 
         // Reset form
