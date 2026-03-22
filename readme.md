@@ -2,6 +2,8 @@
 
 A modern, full-stack web application designed for seamlessly managing products, tracking inventory quantities, and categorizing items in real-time. Built with a React frontend and an Express/MongoDB backend, this app supports robust CRUD operations within an elegant and user-friendly interface.
 
+[Hosted Link](https://smart-inventory-manager-chi.vercel.app/)
+
 ## 🌟 Features
 
 - **Inventory Dashboard**: View all current stock comprehensively on a single categorized grid interface.
